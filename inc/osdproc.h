@@ -57,6 +57,7 @@ void draw_panel_changed(void);
 void draw_warning(void);
 void draw_CWH(void);
 void draw_head_wp_home(void);
+void draw_watts(void);
 
 void cal_vars(void);
 

@@ -59,9 +59,6 @@ void draw_CWH(void);
 void draw_head_wp_home(void);
 void draw_watts(void);
 
-void cal_vars(void);
-
-
 void draw_vertical_scale(int v, int range, int halign, int x, int y, int height, int mintick_step,
                          int majtick_step, int mintick_len, int majtick_len,
                          int boundtick_len, __attribute__((unused)) int max_val, int flags);

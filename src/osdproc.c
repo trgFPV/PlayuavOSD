@@ -930,7 +930,7 @@ void draw_watts() {
     return;
   }
 
-  sprintf(tmp_str, "%dW", osd_vbat_A * osd_curr_A * 0.01);
+  sprintf(tmp_str, "%0.1fW", osd_vbat_A * osd_curr_A * 0.01);
 
   write_string(tmp_str, eeprom_buffer.params.Watts_posX, eeprom_buffer.params.Watts_posY,
                0, 0, TEXT_VA_TOP, eeprom_buffer.params.Watts_align, 0,

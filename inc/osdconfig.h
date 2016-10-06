@@ -204,6 +204,9 @@ typedef union {
     uint16_t Alarm_low_alt;
     uint16_t Alarm_over_alt_en;
     uint16_t Alarm_over_alt;
+    uint16_t Alarm_low_volt_en; // 0 = Disabeld, 1 = Enabeld
+    uint16_t Alarm_low_volt_cell_count; //number of cells in series
+    uint16_t Alarm_low_volt_cell_min_volt; //minium Voltage per cell
 
     uint16_t ClimbRate_en;
     uint16_t ClimbRate_panel;
@@ -346,7 +349,7 @@ typedef union {
     uint16_t HomeLongitude_posY;
     uint16_t HomeLongitude_fontsize;
     uint16_t HomeLongitude_align;
-    
+
     uint16_t Watts_en;
     uint16_t Watts_panel;
     uint16_t Watts_posX;

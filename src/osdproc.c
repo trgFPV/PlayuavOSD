@@ -852,7 +852,7 @@ void draw_rssi() {
   }
 
   write_string(tmp_str, eeprom_buffer.params.RSSI_posX,
-               eeprom_buffer.params.RSSI_posY, 0, 0, TEXT_VA_MIDDLE,
+               eeprom_buffer.params.RSSI_posY, 0, 0, TEXT_VA_TOP,
                eeprom_buffer.params.RSSI_align, 0,
                SIZE_TO_FONT[eeprom_buffer.params.RSSI_fontsize]);
 }
@@ -902,7 +902,7 @@ void draw_link_quality() {
   }
 
   write_string(tmp_str, eeprom_buffer.params.LinkQuality_posX,
-               eeprom_buffer.params.LinkQuality_posY, 0, 0, TEXT_VA_MIDDLE,
+               eeprom_buffer.params.LinkQuality_posY, 0, 0, TEXT_VA_TOP,
                eeprom_buffer.params.LinkQuality_align, 0,
                SIZE_TO_FONT[eeprom_buffer.params.LinkQuality_fontsize]);
 }
@@ -1348,8 +1348,8 @@ void draw_warning(void) {
 
 
   bool haswarn = false;
-  const static int warn_cnt = 6;
-  uint8_t warning[] = { 0, 0, 0, 0, 0, 0, 0 };
+  const static int warn_cnt = 7;
+  uint8_t warning[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
   //no GPS fix!
   if (eeprom_buffer.params.Alarm_GPS_status_en == 1 && (osd_fix_type < GPS_OK_FIX_3D)) {
@@ -1403,6 +1403,12 @@ void draw_warning(void) {
     warning[6] = 1;
   }
 
+  //low voltage alarm, manual cell count
+  if(eeprom_buffer.params.Alarm_low_volt_en == 1 && (osd_vbat_A <= eeprom_buffer.params.Alarm_low_volt_cell_count * eeprom_buffer.params.Alarm_low_volt_cell_min_volt)) {
+  	haswarn = true;
+  	warning[7] = 1;
+  }
+
   if (haswarn) {
     last_warn_time = GetSystimeMS();
     if (last_warn_type > (warn_cnt - 1)) last_warn_type = 0;
@@ -1441,6 +1447,11 @@ void draw_warning(void) {
     }
     if (last_warn_type == 6 && warning[6] == 1) {
       warn_str = "NO HOME POSITION SET";
+      last_warn_type++;
+      return;
+    }
+    if (last_warn_type == 7 && warning[6] == 1) {
+      warn_str = "LOW VOLTAGE";
       last_warn_type++;
       return;
     }
